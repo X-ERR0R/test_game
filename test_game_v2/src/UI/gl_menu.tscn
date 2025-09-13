@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu6o7kixtgw6c"]
+
+[ext_resource type="Texture2D" uid="uid://boixw1brf38xy" path="res://src/assets/background/background_layer_1.png" id="1_ji6y6"]
+[ext_resource type="Texture2D" uid="uid://ch72054ijpp05" path="res://src/assets/background/background_layer_2.png" id="2_okwpk"]
+[ext_resource type="Script" uid="uid://bab08qb3g1bo2" path="res://src/UI/button.gd" id="3_bbh7u"]
+
+[node name="gl_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="layer_1" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+autoscroll = Vector2(-20, 0)
+repeat_times = 3
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="layer_1"]
+position = Vector2(160, 90)
+texture = ExtResource("1_ji6y6")
+
+[node name="layer_2" type="Parallax2D" parent="."]
+repeat_size = Vector2(320, 0)
+autoscroll = Vector2(-35, 0)
+repeat_times = 3
+
+[node name="BackgroundLayer2" type="Sprite2D" parent="layer_2"]
+position = Vector2(160, 90)
+texture = ExtResource("2_okwpk")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.394
+anchor_top = 0.368
+anchor_right = 0.603
+anchor_bottom = 0.538
+offset_left = -0.0800095
+offset_top = 0.0239944
+offset_right = 0.039978
+offset_bottom = -0.916008
+button_mask = 0
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "play"
+flat = true
+script = ExtResource("3_bbh7u")
+
+[connection signal="button_down" from="Button" to="Button" method="_on_button_down"]
