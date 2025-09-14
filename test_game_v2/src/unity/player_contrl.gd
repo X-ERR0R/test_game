@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @onready var animated: AnimatedSprite2D = $animated
 
-const speed = 300.0
-const jump = -400.0
+@export var speed = 300.0
+@export var jump = -400.0
 
 #приоритет анимаций 
 const  pr_idle = 1
@@ -51,7 +51,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack") && priority <= pr_attack:
 		animated.play("attack")
 		priority = pr_attack
-
 	move_and_slide()
 
 func _ready() -> void:
