@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if global_position.y >= velocity.y && priority < pr_fell:
+	if global_position.y < to_global(velocity).y  && priority <= pr_fell:
 		animated.play("fell")
 		priority = pr_fell
 

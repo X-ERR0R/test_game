@@ -260,8 +260,6 @@ script = ExtResource("1_w4nty")
 position = Vector2(1, -13)
 sprite_frames = SubResource("SpriteFrames_db15d")
 animation = &"attack"
-frame = 5
-frame_progress = 1.0
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
 rotation = 3.149
