@@ -1,8 +1,33 @@
-[gd_scene load_steps=21 format=3 uid="uid://c73c7kkn44fth"]
+[gd_scene load_steps=29 format=3 uid="uid://c73c7kkn44fth"]
 
 [ext_resource type="Script" uid="uid://djixxvo3ih6kn" path="res://src/unity/enemy_1_contrl.gd" id="1_c7v7i"]
 [ext_resource type="Texture2D" uid="uid://codqaqrwo2206" path="res://src/assets/enemy/Soldier_Idle.png" id="1_wwm85"]
+[ext_resource type="Texture2D" uid="uid://rleoqb5nqoav" path="res://src/assets/enemy/Soldier_Attack01.png" id="2_66mkl"]
 [ext_resource type="Texture2D" uid="uid://ch680npo0pctf" path="res://src/assets/enemy/everything else.png" id="3_oyuhq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de7qg"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_st0fa"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5t18x"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4mnh"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esfmr"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vr08"]
+atlas = ExtResource("2_66mkl")
+region = Rect2(500, 0, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c737q"]
 atlas = ExtResource("1_wwm85")
@@ -64,6 +89,29 @@ region = Rect2(700, 100, 100, 100)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_de7qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_st0fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5t18x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4mnh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esfmr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vr08")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_c737q")
 }, {
 "duration": 1.0,
@@ -115,12 +163,16 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wwm85"]
-radius = 108.665
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7jk0y"]
 radius = 8.00411
 height = 29.9997
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wwm85"]
+radius = 108.665
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kx6hk"]
+radius = 14.0
+height = 68.0
 
 [node name="enemy_1" type="CharacterBody2D"]
 collision_layer = 16
@@ -131,9 +183,16 @@ speed = 50.0
 [node name="animeted" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.71, 1.71)
 sprite_frames = SubResource("SpriteFrames_nvxrb")
-animation = &"run"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.70279
+frame = 3
+flip_h = true
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+rotation = 3.13742
+shape = SubResource("CapsuleShape2D_7jk0y")
+debug_color = Color(0.987749, 0, 0.309634, 0.42)
 
 [node name="detector" type="Area2D" parent="."]
 collision_layer = 8
@@ -144,11 +203,17 @@ monitorable = false
 shape = SubResource("CircleShape2D_wwm85")
 debug_color = Color(0.795849, 0.280327, 1.92523e-07, 0.419608)
 
-[node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
-rotation = 3.13742
-shape = SubResource("CapsuleShape2D_7jk0y")
-debug_color = Color(0.987749, 0, 0.309634, 0.42)
+[node name="area_atck" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 32
+monitorable = false
+
+[node name="area" type="CollisionShape2D" parent="area_atck"]
+position = Vector2(0, -2)
+rotation = 1.5708144
+shape = SubResource("CapsuleShape2D_kx6hk")
+debug_color = Color(0.47498512, 0.18132427, 2.4065375e-07, 0.41960785)
 
 [connection signal="body_entered" from="detector" to="." method="_on_detector_body_entered"]
 [connection signal="body_exited" from="detector" to="." method="_on_detector_body_exited"]
+[connection signal="body_entered" from="area_atck" to="." method="_on_area_atck_body_entered"]

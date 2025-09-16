@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ef5l3m4c53hh"]
+[gd_scene load_steps=38 format=3 uid="uid://ef5l3m4c53hh"]
 
 [ext_resource type="Texture2D" uid="uid://uedjmcoviu4u" path="res://src/assets/animation_chapter/char_blue.png" id="1_8egp1"]
 [ext_resource type="Script" uid="uid://yxpdl50jm7fd" path="res://src/unity/player_contrl.gd" id="1_w4nty"]
@@ -94,6 +94,14 @@ region = Rect2(280, 168, 56, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1qa0"]
 atlas = ExtResource("1_8egp1")
 region = Rect2(336, 172, 56, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krqu3"]
+atlas = ExtResource("1_8egp1")
+region = Rect2(336, 173, 56, 43)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huiug"]
+atlas = ExtResource("1_8egp1")
+region = Rect2(392, 171, 56, 43)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_db15d"]
 atlas = ExtResource("1_8egp1")
@@ -213,10 +221,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f1qa0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_krqu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huiug")
 }],
 "loop": false,
 "name": &"jump",
-"speed": 7.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -259,7 +273,8 @@ floor_constant_speed = true
 floor_block_on_wall = false
 script = ExtResource("1_w4nty")
 speed = 100.0
-jump = -220.0
+jump = -150.0
+sky_freeze = 0.01
 
 [node name="animated" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -13)
@@ -278,8 +293,9 @@ drag_bottom_margin = 0.13
 editor_draw_drag_margin = true
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(0.9999999, -2.842171e-14)
 rotation = -3.13419
 shape = SubResource("CapsuleShape2D_ge4pw")
 
 [connection signal="animation_finished" from="animated" to="." method="_on_animated_animation_finished"]
+[connection signal="frame_changed" from="animated" to="." method="_on_animated_frame_changed"]

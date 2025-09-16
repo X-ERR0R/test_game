@@ -49,3 +49,7 @@ func _on_detector_body_exited(body: Node2D) -> void:
 # остановка при покидании области
 	agr = false
 	animeted.play("idle")
+
+
+func _on_area_atck_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
